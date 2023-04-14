@@ -105,7 +105,7 @@ class CandidatController extends AbstractController
         empty($data['FirstName']) ? true : $candidat->setfirstName($data['firstName']);
         empty($data['lastName']) ? true : $candidat->setLastName($data['lastName']);
         empty($data['email']) ? true : $candidat->setEmail($data['email']);
-        empty($data['password']) ? true : $candidat->setPassword($data['passeword']);
+        empty($data['password']) ? true : $candidat->setPassword($data['password']);
         empty($data['cv']) ? true : $candidat->setCv($data['cv']);
         empty($data['isValid']) ? true : $candidat->isIsValid($data['isValid']);
        

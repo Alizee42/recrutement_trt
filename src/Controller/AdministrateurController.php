@@ -99,7 +99,7 @@ class AdministrateurController extends AbstractController
         empty($data['FirstName']) ? true : $administrateur->setfirstName($data['firstName']);
         empty($data['lastName']) ? true : $administrateur->setLastName($data['lastName']);
         empty($data['email']) ? true : $administrateur->setEmail($data['email']);
-        empty($data['password']) ? true : $administrateur->setPassword($data['passeword']);
+        empty($data['password']) ? true : $administrateur->setPassword($data['password']);
        
         $updatedAdministrateur = $this->administrateurRepository->update($administrateur);
 

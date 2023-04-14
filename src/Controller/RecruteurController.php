@@ -100,7 +100,7 @@ class RecruteurController extends AbstractController
         $data = json_decode($request->getContent(), true);
         
         empty($data['email']) ? true : $recruteur->setEmail($data['email']);
-        empty($data['password']) ? true : $recruteur->setPassword($data['passeword']);
+        empty($data['password']) ? true : $recruteur->setPassword($data['password']);
         empty($data['compagnyName']) ? true : $recruteur->setCompagnyName($data['compagnyName']);
         empty($data['compagnyAdress']) ? true : $recruteur->setCompagnyAdress($data['compagnyAdress']);
         empty($data['isValid']) ? true : $recruteur->isIsValid($data['isValid']);

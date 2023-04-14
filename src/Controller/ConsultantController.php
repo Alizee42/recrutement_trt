@@ -99,7 +99,7 @@ class ConsultantController extends AbstractController
         empty($data['FirstName']) ? true : $consultant->setfirstName($data['firstName']);
         empty($data['lastName']) ? true : $consultant->setLastName($data['lastName']);
         empty($data['email']) ? true : $consultant->setEmail($data['email']);
-        empty($data['password']) ? true : $consultant->setPassword($data['passeword']);
+        empty($data['password']) ? true : $consultant->setPassword($data['password']);
        
         $updatedconsultant = $this->consultantRepository->update($consultant);
 
