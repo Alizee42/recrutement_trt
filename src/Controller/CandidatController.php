@@ -18,9 +18,7 @@ class CandidatController extends AbstractController
         $this->candidatRepository = $candidatRepository;
     }
 
-    /**
-     * @Route("/candidats", name="candidat", methods={"POST"})
-     */
+    #[Route('/candidats', name:'add_candidat', methods: ['POST'])]
     public function add(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -41,9 +39,7 @@ class CandidatController extends AbstractController
         return new JsonResponse(['status' => 'Candidat created!'], Response::HTTP_CREATED);
     }
 
-    /**
-     * @Route("/candidats/{id}", name="get_one_candidat", methods={"GET"})
-     */
+    #[Route('/candidats/{id}', name:'get_one_candidat', methods: ['GET'])]
     public function get($id): JsonResponse
     {
         $candidat = $this->candidatRepository->findOneBy(['id' => $id]);
@@ -66,9 +62,7 @@ class CandidatController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/candidats", name="get_all_candidat", methods={"GET"})
-     */
+    #[Route('/candidats', name:'get_all_candidat', methods: ['GET'])]
     public function getAll(): JsonResponse
     {
         $candidats = $this->candidatRepository->findAll();
@@ -90,9 +84,7 @@ class CandidatController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/candidats/{id}", name="update_candidat", methods={"PUT"})
-     */
+    #[Route('/candidats/{id}', name:'update_candidat', methods: ['PUT'])]
     public function update($id, Request $request): JsonResponse
     {
         $candidat = $this->candidatRepository->findOneBy(['id' => $id]);
@@ -102,7 +94,7 @@ class CandidatController extends AbstractController
         }
 
         $data = json_decode($request->getContent(), true);
-        empty($data['FirstName']) ? true : $candidat->setfirstName($data['firstName']);
+        empty($data['firstName']) ? true : $candidat->setFirstName($data['firstName']);
         empty($data['lastName']) ? true : $candidat->setLastName($data['lastName']);
         empty($data['email']) ? true : $candidat->setEmail($data['email']);
         empty($data['password']) ? true : $candidat->setPassword($data['password']);
@@ -111,12 +103,10 @@ class CandidatController extends AbstractController
        
         $updatedCandidat = $this->candidatRepository->update($candidat);
 
-        return new JsonResponse($updatedCandidat, Response::HTTP_OK);
+        return new JsonResponse(['status' => 'candidat mis à jour'], Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/candidats/{id}", name="delete_candidat", methods={"DELETE"})
-     */
+    #[Route('/candidats/{id}', name:'delete_candidat', methods: ['DELETE'])]
     public function delete($id): JsonResponse
     {
         $candidat = $this->candidatRepository->findOneBy(['id' => $id]);

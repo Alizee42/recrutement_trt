@@ -19,9 +19,7 @@ class RecruteurController extends AbstractController
         $this->recruteurRepository = $recruteurRepository;
     }
 
-    /**
-     * @Route("/recruteurs", name="recruteur", methods={"POST"})
-     */
+    #[Route('/recruteurs', name:'add_recruteur', methods: ['POST'])]
     public function add(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -40,9 +38,7 @@ class RecruteurController extends AbstractController
         return new JsonResponse(['status' => 'Recruteur created!'], Response::HTTP_CREATED);
     }
 
-    /**
-     * @Route("/recruteurs/{id}", name="get_one_recruteur", methods={"GET"})
-     */
+    #[Route('/recruteurs/{id}', name:'get_one_recruteur', methods: ['GET'])]
     public function get($id): JsonResponse
     {
         $recruteur = $this->recruteurRepository->findOneBy(['id' => $id]);
@@ -63,9 +59,7 @@ class RecruteurController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/recruteurs", name="get_all_recruteur", methods={"GET"})
-     */
+    #[Route('/recruteurs', name:'get_all_recruteur', methods: ['GET'])]
     public function getAll(): JsonResponse
     {
         $recruteurs = $this->recruteurRepository->findAll();
@@ -86,9 +80,7 @@ class RecruteurController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/recruteurs/{id}", name="update_recruteur", methods={"PUT"})
-     */
+    #[Route('/recruteurs/{id}', name:'update_recruteur', methods: ['PUT'])]
     public function update($id, Request $request): JsonResponse
     {
         $recruteur = $this->recruteurRepository->findOneBy(['id' => $id]);
@@ -107,12 +99,10 @@ class RecruteurController extends AbstractController
 
         $updatedRecruteur = $this->recruteurRepository->update($recruteur);
 
-        return new JsonResponse($updatedRecruteur, Response::HTTP_OK);
+        return new JsonResponse(['status' => 'recruteur mis à jour'], Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/recruteurs/{id}", name="delete_recruteur", methods={"DELETE"})
-     */
+    #[Route('/recruteurs/{id}', name:'delete_recruteur', methods: ['DELETE'])]
     public function delete($id): JsonResponse
     {
         $recruteur = $this->recruteurRepository->findOneBy(['id' => $id]);

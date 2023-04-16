@@ -19,9 +19,7 @@ class CandidatureController extends AbstractController
         $this->candidatureRepository = $candidatureRepository;
     }
 
-    /**
-     * @Route("/candidatures", name="candidature", methods={"POST"})
-     */
+    #[Route('/candidatures', name:'add_candidature', methods: ['POST'])]
     public function add(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -38,9 +36,7 @@ class CandidatureController extends AbstractController
         return new JsonResponse(['status' => 'Candidature created!'], Response::HTTP_CREATED);
     }
 
-    /**
-     * @Route("/candidatures/{id}", name="get_one_candidature", methods={"GET"})
-     */
+    #[Route('/candidatures/{id}', name:'get_one_candidature', methods: ['GET'])]
     public function get($id): JsonResponse
     {
         $candidature = $this->candidatureRepository->findOneBy(['id' => $id]);
@@ -57,9 +53,7 @@ class CandidatureController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/candidatures", name="get_all_candidature", methods={"GET"})
-     */
+    #[Route('/candidatures', name:'get_all_candidature', methods: ['GET'])]
     public function getAll(): JsonResponse
     {
         $candidatures = $this->candidatureRepository->findAll();
@@ -76,9 +70,7 @@ class CandidatureController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/candidatures/{id}", name="update_candidature", methods={"PUT"})
-     */
+    #[Route('/candidatures/{id}', name:'update_candidature', methods: ['PUT'])]
     public function update($id, Request $request): JsonResponse
     {
         $candidature = $this->candidatureRepository->findOneBy(['id' => $id]);
@@ -92,12 +84,10 @@ class CandidatureController extends AbstractController
    
         $updatedcandidature = $this->candidatureRepository->update($candidature);
 
-        return new JsonResponse($updatedcandidature, Response::HTTP_OK);
+        return new JsonResponse(['status' => 'candidature mise à jour'], Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/candidatures/{id}", name="delete_candidature", methods={"DELETE"})
-     */
+    #[Route('/candidatures/{id}', name:'delete_candidature', methods: ['DELETE'])]
     public function delete($id): JsonResponse
     {
         $candidature = $this->candidatureRepository->findOneBy(['id' => $id]);

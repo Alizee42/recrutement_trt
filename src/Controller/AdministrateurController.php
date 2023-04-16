@@ -19,9 +19,8 @@ class AdministrateurController extends AbstractController
         $this->administrateurRepository = $administrateurRepository;
     }
 
-    /**
-     * @Route("/administrateurs", name="administrateur", methods={"POST"})
-     */
+   
+    #[Route('/administrateurs', name:'add_administrateur', methods: ['POST'])]
     public function add(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -40,9 +39,7 @@ class AdministrateurController extends AbstractController
         return new JsonResponse(['status' => 'Administrateur created!'], Response::HTTP_CREATED);
     }
 
-    /**
-     * @Route("/administrateurs/{id}", name="get_one_administrateur", methods={"GET"})
-     */
+    #[Route('/administrateurs/{id}', name:'get_one_administrateur', methods: ['GET'])]
     public function get($id): JsonResponse
     {
         $administrateur = $this->administrateurRepository->findOneBy(['id' => $id]);
@@ -62,9 +59,7 @@ class AdministrateurController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/administrateurs", name="get_all_administrateur", methods={"GET"})
-     */
+    #[Route('/administrateurs', name:'get_all_administrateur', methods: ['GET'])]
     public function getAll(): JsonResponse
     {
         $administrateurs = $this->administrateurRepository->findAll();
@@ -84,9 +79,7 @@ class AdministrateurController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/administrateurs/{id}", name="update_administrateur", methods={"PUT"})
-     */
+    #[Route('/administrateurs/{id}', name:'update_administrateur', methods: ['PUT'])]
     public function update($id, Request $request): JsonResponse
     {
         $administrateur = $this->administrateurRepository->findOneBy(['id' => $id]);
@@ -96,19 +89,17 @@ class AdministrateurController extends AbstractController
         }
 
         $data = json_decode($request->getContent(), true);
-        empty($data['FirstName']) ? true : $administrateur->setfirstName($data['firstName']);
+        empty($data['firstName']) ? true : $administrateur->setFirstName($data['firstName']);
         empty($data['lastName']) ? true : $administrateur->setLastName($data['lastName']);
         empty($data['email']) ? true : $administrateur->setEmail($data['email']);
         empty($data['password']) ? true : $administrateur->setPassword($data['password']);
        
         $updatedAdministrateur = $this->administrateurRepository->update($administrateur);
 
-        return new JsonResponse($updatedAdministrateur, Response::HTTP_OK);
+        return new JsonResponse(['status' => 'administrateur mis à jour'], Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/administrateurs/{id}", name="delete_administrateur", methods={"DELETE"})
-     */
+    #[Route('/administrateurs/{id}', name:'delete_administrateur', methods: ['DELETE'])]
     public function delete($id): JsonResponse
     {
         $administrateur = $this->administrateurRepository->findOneBy(['id' => $id]);

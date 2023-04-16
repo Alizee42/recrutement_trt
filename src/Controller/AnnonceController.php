@@ -19,9 +19,8 @@ class AnnonceController extends AbstractController
         $this->annonceRepository = $annonceRepository;
     }
 
-    /**
-     * @Route("/annonces", name="annonce", methods={"POST"})
-     */
+    
+    #[Route('/annonces', name:'add_annonces', methods: ['POST'])]
     public function add(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -40,9 +39,8 @@ class AnnonceController extends AbstractController
         return new JsonResponse(['status' => 'Annonce created!'], Response::HTTP_CREATED);
     }
 
-    /**
-     * @Route("/annonces/{id}", name="get_one_annonce", methods={"GET"})
-     */
+   
+    #[Route('/annonces/{id}', name:'get_one_annonces', methods: ['GET'])]
     public function get($id): JsonResponse
     {
         $annonce = $this->annonceRepository->findOneBy(['id' => $id]);
@@ -62,9 +60,7 @@ class AnnonceController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/annonces", name="annonce", methods={"GET"})
-     */
+    #[Route('/annonces', name:'get_all_annonces', methods: ['GET'])]
     public function getAll(): JsonResponse
     {
         $annonces = $this->annonceRepository->findAll();
@@ -84,9 +80,8 @@ class AnnonceController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/annonces/{id}", name="update_annonce", methods={"PUT"})
-     */
+    
+    #[Route('/annonces/{id}', name:'update_annonces', methods: ['PUT'])]
     public function update($id, Request $request): JsonResponse
     {
         $annonce = $this->annonceRepository->findOneBy(['id' => $id]);
@@ -103,12 +98,11 @@ class AnnonceController extends AbstractController
        
         $updatedAnnonce = $this->annonceRepository->update($annonce);
 
-        return new JsonResponse($updatedAnnonce, Response::HTTP_OK);
+        return new JsonResponse(['status' => 'annonce mise à jour'], Response::HTTP_OK); 
     }
 
-    /**
-     * @Route("/annonces/{id}", name="delete_annonce", methods={"DELETE"})
-     */
+    
+    #[Route('/annonces/{id}', name:'delete_annonces', methods: ['DELETE'])]
     public function delete($id): JsonResponse
     {
         $annonce = $this->annonceRepository->findOneBy(['id' => $id]);
