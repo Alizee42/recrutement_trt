@@ -115,4 +115,30 @@ class RecruteurController extends AbstractController
 
         return new JsonResponse(['status' => 'recruteur deleted'], Response::HTTP_NO_CONTENT);
     }
+
+    #[Route('/recruteurs/login', name:'login_recruteur', methods: ['POST'])]
+    public function login(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $email = $data['email'];
+        $password = $data['password'];
+
+        $utilisateur = $this->recruteurRepository->findOneBy(
+            [
+                'email' => $email,
+                'password' => $password
+            ]
+        );
+
+        if($utilisateur == null) {
+            return new JsonResponse(['status' => 'Email ou mot de passe invalide'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        if(!$utilisateur->getRole() == "recruteur") {
+            return new JsonResponse(['status' => 'Role utilisateur incorrect'], Response::HTTP_FORBIDDEN);
+        }
+
+        return new JsonResponse(['status' => 'Compte recruteur trouvé'], Response::HTTP_OK);
+    }
 }

@@ -115,4 +115,22 @@ class AnnonceController extends AbstractController
 
         return new JsonResponse(['status' => 'Annonce deleted'], Response::HTTP_NO_CONTENT);
     }
+
+    
+    #[Route('/annonces/{id}/publier', name:'published_one_annonce', methods: ['GET'])]
+    public function publish($id): JsonResponse
+    {
+        $annonce = $this->annonceRepository->findOneBy(['id' => $id]);
+
+        if($annonce == null) {
+            return new JsonResponse(['status' => 'annonce not found!'], Response::HTTP_NOT_FOUND);
+        }
+
+        $annonce->setIsValid(true);
+
+        $updatedAnnonce = $this->annonceRepository->update($annonce);
+
+        return new JsonResponse(['status' => 'annonce publiée avec succès'], Response::HTTP_OK);
+    }
+
 }

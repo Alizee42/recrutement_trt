@@ -28,6 +28,7 @@ class ConsultantRepository extends ServiceEntityRepository
         $consultant->setLastName($lastName);
         $consultant->setEmail($email);
         $consultant->setPassword($password);
+        $consultant->setRole("consultant");
         $this->getEntityManager()->persist($consultant);
         $this->getEntityManager()->flush();
     }

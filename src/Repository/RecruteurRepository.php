@@ -29,6 +29,7 @@ class RecruteurRepository extends ServiceEntityRepository
         $recruteur->setCompagnyName($compagnyName);
         $recruteur->setCompagnyAdress($compagnyAdress);
         $recruteur->setIsValid($isValid);
+        $recruteur->setRole("recruteur");
         $this->getEntityManager()->persist($recruteur);
         $this->getEntityManager()->flush();
     }

@@ -28,6 +28,7 @@ class AdministrateurRepository extends ServiceEntityRepository
         $administrateur->setLastName($lastName);
         $administrateur->setEmail($email);
         $administrateur->setPassword($password);
+        $administrateur->setRole("administrateur");
         $this->getEntityManager()->persist($administrateur);
         $this->getEntityManager()->flush();
     }

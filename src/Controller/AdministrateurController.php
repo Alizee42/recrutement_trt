@@ -112,4 +112,32 @@ class AdministrateurController extends AbstractController
 
         return new JsonResponse(['status' => 'administrateur deleted'], Response::HTTP_NO_CONTENT);
     }
+
+    #[Route('/administrateurs/login', name:'login_administrateur', methods: ['POST'])]
+    public function login(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $email = $data['email'];
+        $password = $data['password'];
+
+        $utilisateur = $this->administrateurRepository->findOneBy(
+            [
+                'email' => $email,
+                'password' => $password
+            ]
+        );
+
+        if($utilisateur == null) {
+            return new JsonResponse(['status' => 'Email ou mot de passe invalide'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        if(!$utilisateur->getRole() == "administrateur") {
+            return new JsonResponse(['status' => 'Role utilisateur incorrect'], Response::HTTP_FORBIDDEN);
+        }
+
+        return new JsonResponse(['status' => 'Compte administrateur trouvé'], Response::HTTP_OK);
+    }
+
+
 }

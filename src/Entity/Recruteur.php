@@ -28,6 +28,9 @@ class Recruteur
     #[ORM\Column]
     private ?bool $isValid = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $role = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class Recruteur
     public function setIsValid(bool $isValid): self
     {
         $this->isValid = $isValid;
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }

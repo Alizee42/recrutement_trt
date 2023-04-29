@@ -30,6 +30,7 @@ class CandidatRepository extends ServiceEntityRepository
         $candidat->setPassword($password);
         $candidat->setCv($cv);
         $candidat->setIsValid($isValid);
+        $candidat->setRole("candidat");
         $this->getEntityManager()->persist($candidat);
         $this->getEntityManager()->flush();
     }
